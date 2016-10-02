@@ -137,6 +137,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="DataHandler.h" />
+    <ClInclude Include="DataPoint.h" />
+    <ClInclude Include="DecisionTree.h" />
+    <ClInclude Include="DecisionTreeNode.h" />
+    <ClInclude Include="Question.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
@@ -146,6 +152,8 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="BinaryDecisionForest.cpp" />
+    <ClCompile Include="DataHandler.cpp" />
+    <ClCompile Include="DecisionTree.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
