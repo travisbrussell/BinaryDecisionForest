@@ -9,12 +9,24 @@
 
 using namespace System;
 
-DataHandler* ReturnCongressData(Config* config);
-DataHandler* ReturnPimaData(Config* config);
-void CategoricalAttributeExample();
-void ContinuousAttributeExample();
+DataHandler* ReturnCongressData(Config* config, std::string trainAddress);
+DataHandler* ReturnPimaData(Config* config, std::string trainAddress);
+void CategoricalAttributeExample(std::string dataLocation);
+void ContinuousAttributeExample(std::string dataLocation);
 
-void CategoricalAttributeExample()
+int main(array<System::String ^> ^args)
+{
+	Console::WriteLine(L"Basic Binary Decision Forest");
+	// Learn UCI Congress Voting Records data set
+	std::string Congress = "C:\\Users\\TRussell\\Desktop\\ML Notes\\HW 1\\data\\Congress\\house-votes-84.txt";
+	CategoricalAttributeExample(Congress);
+	// Learn UCI Pima Indians Diabetes data set
+	std::string Pima = "C:\\Users\\TRussell\\Desktop\\ML Notes\\HW 1\\data\\Pima\\pima-indians-diabetes.data";
+	ContinuousAttributeExample(Pima);
+	return 0;
+}
+
+void CategoricalAttributeExample(std::string dataLocation)
 {
 	Console::WriteLine(L"Congressional voting records data set:");
 	// analyze UCI Congreesional voting records data set: https://archive.ics.uci.edu/ml/datasets/Congressional+Voting+Records
@@ -34,7 +46,7 @@ void CategoricalAttributeExample()
 	config->NumberOfTestingPoints = 100;
 
 	// set up data handler
-	DataHandler* dataHandler = ReturnCongressData(config);
+	DataHandler* dataHandler = ReturnCongressData(config, dataLocation);
 
 	// train forest
 	DecisionTreeNode** forest = new DecisionTreeNode*[config->NumberOfTrees];
@@ -98,7 +110,7 @@ void CategoricalAttributeExample()
 	Console::ReadLine();
 }
 
-void ContinuousAttributeExample()
+void ContinuousAttributeExample(std::string dataLocation)
 {
 	Console::WriteLine(L"Pima indians diabetes data set:");
 	// analyze Pima Indian Diabetes data set: https://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes
@@ -114,7 +126,7 @@ void ContinuousAttributeExample()
 	config->NumberOfRandomQuestions = 1000;
 
 	// set up data handler & mine max/min attribute values
-	DataHandler* dataHandler = ReturnPimaData(config);
+	DataHandler* dataHandler = ReturnPimaData(config, dataLocation);
 
 	// train forest
 	DecisionTreeNode** forest = new DecisionTreeNode*[config->NumberOfTrees];
@@ -178,19 +190,9 @@ void ContinuousAttributeExample()
 	Console::ReadLine();
 }
 
-int main(array<System::String ^> ^args)
+DataHandler* ReturnCongressData(Config* config, std::string trainAddress)
 {
-    Console::WriteLine(L"Basic Binary Decision Forest");
-	// Learn UCI Congress Voting Records data set
-	CategoricalAttributeExample();
-	// Learn UCI Pima Indians Diabetes data set
-	ContinuousAttributeExample();
-    return 0;
-}
-
-DataHandler* ReturnCongressData(Config* config)
-{
-	std::string trainAddress = "C:\\Users\\TRussell\\Desktop\\ML Notes\\HW 1\\data\\Congress\\house-votes-84.txt";
+	//std::string trainAddress = "C:\\Users\\TRussell\\Desktop\\ML Notes\\HW 1\\data\\Congress\\house-votes-84.txt";
 	int numberOfDataPoints = 435;
 
 	// set up data handler
@@ -255,9 +257,8 @@ DataHandler* ReturnCongressData(Config* config)
 	return dataHandler;
 }
 
-DataHandler* ReturnPimaData(Config* config)
+DataHandler* ReturnPimaData(Config* config, std::string trainAddress)
 {
-	std::string trainAddress = "C:\\Users\\TRussell\\Desktop\\ML Notes\\HW 1\\data\\Pima\\pima-indians-diabetes.data";
 	int numberOfDataPoints = 768;
 
 	// set up data handler
